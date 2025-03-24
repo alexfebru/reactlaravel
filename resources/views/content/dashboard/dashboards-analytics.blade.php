@@ -37,6 +37,7 @@
                 :key="product.id"
               
             >
+            <!-- pong  -->
               <td>@{{product.id}}</td>    
               <td>@{{product.title}}</td> 
               <td>@{{product.category}}</td>
