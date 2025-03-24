@@ -37,7 +37,7 @@
                 :key="product.id"
               
             >
-            <!-- pong  -->
+            <!-- phea sothea -->
               <td>@{{product.id}}</td>    
               <td>@{{product.title}}</td> 
               <td>@{{product.category}}</td>
