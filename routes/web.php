@@ -6,6 +6,8 @@ use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
+use App\Http\Controllers\ImageUploadController;
+
 
 // returns the home page with all posts
 Route::get('/', PostController::class .'@index')->name('posts.index');
@@ -21,3 +23,7 @@ Route::get('/posts/{post}/edit', PostController::class .'@edit')->name('posts.ed
 Route::put('/posts/{post}', PostController::class .'@update')->name('posts.update');
 // deletes a post
 Route::delete('/posts/{post}', PostController::class .'@destroy')->name('posts.destroy');
+
+Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('image.form');
+Route::post('/upload', [ImageUploadController::class, 'upload'])->name('image.upload');
+Route::get('/images', [ImageUploadController::class, 'listImages'])->name('images.list');

@@ -14,6 +14,29 @@
           <textarea class="form-control" id="body" name="body" rows="3" required></textarea>
         </div>
         <br>
+        
+
+        <div class="container">
+       <h1>Upload an Image</h1>
+       @if(session('success'))
+           <div class="success">
+               {{ session('success') }}
+           </div>
+           <img src="{{ asset('uploads/' . session('image')) }}" alt="Uploaded Image">
+       @endif
+       @if(session('error'))
+           <div class="error">
+               {{ session('error') }}
+           </div>
+       @endif
+       <form action="{{ route('image.upload') }}" method="POST" enctype="multipart/form-data">
+           @csrf
+           <label for="image">Choose an Image:</label>
+           <input type="file" name="image" id="image" required>
+       
+       </form>
+       
+   </div>
         <button type="submit" class="btn btn-primary">Create Post</button>
       </form>
     </div>

@@ -30,6 +30,9 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
             <div class="card-body">
               <p class="card-text">{{ $post->body }}</p>
             </div>
+            <div class="card-body">
+              <p class="card-text">{{ $post->image }}</p>
+            </div>
             <div class="card-footer">
               <div class="row">
                 <div class="col-sm">
@@ -47,6 +50,8 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
             </div>
           </div>
         </div>
+
+        
       @endforeach
     </div>
   </div>
