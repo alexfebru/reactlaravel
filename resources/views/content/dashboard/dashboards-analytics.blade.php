@@ -23,8 +23,23 @@
               </tr>
             </thead>
             <tbody>
-           
+              @foreach ($products as $value)
                 <tr>
+                  <td class="text-truncate">{{ $value->title }}</td>
+                  <td class="text-truncate">{{ $value->price }}</td>
+                  <td class="text-truncate">{{ $value->description }}</td>
+                  <td class="text-truncate">{{ $value->category }}</td>
+                  <td class="text-truncate">
+                    <img src="{{asset('assets/img/products/product-1.jpg')}}" alt="Product 1" class="rounded-circle" width="50">
+                  </td>
+                  <td class="text-truncate">
+                    <a href="{{ url('/editProduct') }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ url('product/delete') }}" class="btn btn-danger">Delete</a>
+                  </td>
+                </tr>
+              
+              @endforeach
+                <!-- <tr>
                   <td class="text-truncate">1</td>
                   <td class="text-truncate">1000</td>
                   <td class="text-truncate">Product 1 Description</td>
@@ -36,7 +51,7 @@
                     <a href="{{ url('/editProduct') }}" class="btn btn-primary">Edit</a>
                     <a href="{{ url('product/delete') }}" class="btn btn-danger">Delete</a>
                   </td>
-                </tr>
+                </tr> -->
            
             </tbody>
           </table>

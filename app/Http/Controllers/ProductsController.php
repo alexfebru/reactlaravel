@@ -14,10 +14,13 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Products::paginate(10);
+        // $products = Products::all();
         // $products = DB::table('product')->select('id','title')->get();
-        return view('content.dashboard.dashboards-analytics', [
-            'products' => $products
-        ]);
+
+         return view('content.dashboard.dashboards-analytics', compact('products'));
+        // return view('content.dashboard.dashboards-analytics', [
+        //     'products' => $products
+        // ]);
         
     }
 
@@ -50,9 +53,9 @@ class ProductsController extends Controller
             'image' => $request->image,
         ]);
 
-        Products::create($request->all()); // Changed Post::create to Product::create
+        Products::create($request->all()); 
 
-        return redirect()->route('/') // Changed posts.index to products.index
+        return redirect()->route('content.dashboard.dashboards-analytics') 
             ->with('success', 'Product created successfully.');
     }
 
