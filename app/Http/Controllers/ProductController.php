@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\views\products\index;
 use App\Models\Product;
 class ProductController extends Controller
 {
@@ -11,8 +12,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return response()->json($products);
+        $products = Product::all(); // Fetch all products from the database
+
+        return view('content.dashboard.dashboards-analytics', compact('products'));
+    }
+
+    public function create()
+    {
+        return view('products.create');
     }
 
     /**
@@ -21,16 +28,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'category' => 'required|string|max:255',
-            'image' => 'required|string',
+            'title' => 'required|max:255',
+            'price' => 'required|numeric|min:0', // Added validation for price
+            'description' => 'required',
+            'category' => 'required',
+            'image' => 'required|url', // Added validation for image URL
         ]);
 
-        $product = Product::create($request->all());
+        Product::create($request->all()); // Changed Post::create to Product::create
 
-        return response()->json($product, 201);
+        return redirect()->route('products.index') // Changed posts.index to products.index
+            ->with('success', 'Product created successfully.');
     }
 
     /**
