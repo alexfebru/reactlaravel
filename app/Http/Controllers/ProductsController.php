@@ -84,7 +84,7 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    /* public function store(Request $request)
     {
         // Validate the request
         $validator = Validator::make($request->all(), [
@@ -127,14 +127,45 @@ class ProductsController extends Controller
         ]);
 
         // Optional: return view or JSON
-        /* return response()->json([
-            'message' => 'Product created successfully',
-            'data' => new ProductResource($product)
-        ], 200); */
+       
+        return view('content.dashboard.dashboards-analytics', [
+            'products' => Products::all()
+        ])->with('success', 'Product created successfully.');
+    } */
+    public function store(Request $request)
+    {
+        // Validate input
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'required|string',
+            'category' => 'required|string|max:255',
+            'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
+        ]);
+
+        // Handle file upload
+        $filename = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+        }
+
+        // Save product
+        $product = Products::create([
+            'title' => $request->title,
+            'price' => $request->price,
+            'description' => $request->description,
+            'category' => $request->category,
+            'image' => $filename ? 'images/' . $filename : null,
+        ]);
+
+        // Return view with all products
         return view('content.dashboard.dashboards-analytics', [
             'products' => Products::all()
         ])->with('success', 'Product created successfully.');
     }
+
 
 
     /**

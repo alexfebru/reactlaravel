@@ -36,7 +36,10 @@
 
         <!--   <td class="text-truncate">{{ $items -> image }}</td> -->
         <td class="text-truncate">
-        <img src='assets/($items -> name)' style="width: 70px; height:70px;" />
+          <!-- <img src="/images/{{ $items->image }}" style="width: 70px; height:70px;" /> -->
+          <!-- <img src="{{ asset('images/' . $items->image) }}" style="width: 70px; height:70px;" /> -->
+          <!-- <img src="{{ asset('storage/images/' . $items->image) }}" style="width: 70px; height:70px;" /> -->
+          <img src="{{ asset('images/' . ($items->image ?? 'default.png')) }}" style="width: 70px; height:70px;" />
 
         </td>
         <td class="text-truncate">
