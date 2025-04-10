@@ -21,6 +21,8 @@ Route::controller(App\Http\Controllers\ProductsController::class)->group(functio
     Route::get('products/create', 'create');
     Route::post('products/create', 'store');
     Route::get('products/{id}', 'show');
+    Route::get('products/{id}/edit', 'edit');
     Route::put('products/{id}/update', 'update');
     Route::get('products/{id}/delete', 'destroy');
+
 });

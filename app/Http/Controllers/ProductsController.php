@@ -35,6 +35,7 @@ class ProductsController extends Controller
     {
         /* $products = Products::paginate(10); */
         $products = Products::get();
+       
         if ($products->count() > 0) {
             // Return a collection of products using the ProductResource
             return ProductResource::collection($products);
@@ -85,7 +86,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $files = Products::all(); 
+        // Validate the request
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -94,70 +95,47 @@ class ProductsController extends Controller
             'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
         ]);
 
-    
-  
-        foreach ($request->file as $file) {
-            $filename = time().'_'.$file->getClientOriginalName();
-            $filesize = $file->getSize();
-            $file->storeAs('public/',$filename);
-            $fileModel = new File;
-            $fileModel->name = $filename;
-            $fileModel->size = $filesize;
-            $fileModel->location = 'storage/'.$filename;
-            $fileModel->save();          
-        }
-
-       
-        return view('upload')->with('files', $files);
-/* 
-        $filename = NULL;
-        $path = NULL;
- */
-        /* if ($request->has('image')) {
-
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-
-            $filename = time() . '.' . $extension;
-
-            $path = '/uploads/products/';
-            $file->move($path, $filename);
-        } */
-
-      /*   if ($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
-                'message' => 'Validation failed',
                 'errors' => $validator->errors()
             ], 422);
         }
- */
-        /*    $request->validate([
-               'title' => 'required|string|max:255',
-               'price' => 'required|numeric|min:0',
-               'description' => 'required|string',
-               'category' => 'required|string|max:255',
-               'image' => 'required|url',
-           ]);
-    */
 
-        $products = Products::create([
+        // Handle file upload (if any)
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public', $filename);
+            $imagePath = 'storage/' . $filename;
+
+            // Save file info if needed
+            $fileModel = new File;
+            $fileModel->name = $filename;
+            $fileModel->size = $file->getSize();
+            $fileModel->location = $imagePath;
+            $fileModel->save();
+        }
+
+        // Create the product
+        $product = Products::create([
             'title' => $request->title,
             'price' => $request->price,
             'description' => $request->description,
             'category' => $request->category,
-            'image' => $request->image,
+            'image' => $imagePath,
         ]);
 
-        return response()->json([
+        // Optional: return view or JSON
+        /* return response()->json([
             'message' => 'Product created successfully',
-            'data' => new ProductResource($products)
-        ], 200);
-
-        /*  Products::create($request->all());  */
-
-       /*  return redirect()->route('/') 
-            ->with('success', 'Product created successfully.'); */
+            'data' => new ProductResource($product)
+        ], 200); */
+        return view('content.dashboard.dashboards-analytics', [
+            'products' => Products::all()
+        ])->with('success', 'Product created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -171,69 +149,78 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $product)
+    public function edit(int $id)
     {
-        return view('content.dashboard.edit', compact('product'));
+        $products = Products::findOrFail($id);
+        return view('content.dashboard.edit', compact('products'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Products $product)
+    public function update(Request $request, int $id)
     {
+        // Validate the request
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
             'category' => 'required|string|max:255',
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
         ]);
 
-        $filename = NULL;
-        $path = NULL;
-
-        if ($request->has('image')) {
-
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-
-            $filename = time() . '.' . $extension;
-
-            $path = 'uploads/products/';
-            $file->move($path, $filename);
-        }
-
+        $products = Products::findOrFail($id);
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Validation failed',
                 'errors' => $validator->errors()
             ], 422);
         }
 
-        $product->update([
+        // Handle file upload (if any)
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public', $filename);
+            $imagePath = 'storage/' . $filename;
+
+            // Save file info if needed
+            $fileModel = new File;
+            $fileModel->name = $filename;
+            $fileModel->size = $file->getSize();
+            $fileModel->location = $imagePath;
+            $fileModel->save();
+        }
+
+        // Create the product
+        $products->update([
             'title' => $request->title,
             'price' => $request->price,
             'description' => $request->description,
             'category' => $request->category,
-            'image' => $path . $filename,
+            'image' => $imagePath,
         ]);
 
-        return response()->json([
-            'message' => 'Product updated successfully',
+        // Optional: return view or JSON
+        /* return response()->json([
+            'message' => 'Product created successfully',
             'data' => new ProductResource($product)
-        ], 200);
-
+        ], 200); */
+        return view('content.dashboard.dashboards-analytics', [
+            'products' => Products::all()
+        ])->with('success', 'Product updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $product)
+    public function destroy($id)
     {
+        $product = Products::findOrFail($id);
         $product->delete();
 
-        return response()->json([
-            'message' => 'Product deleted successfully'
-        ], 200);
+         return view('content.dashboard.dashboards-analytics', [
+            'products' => Products::all()
+        ])->with('success', 'Product deleted successfully.');
     }
 }

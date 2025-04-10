@@ -20,10 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 /*  route::apiResource('productApi', 'App\Http\Controllers\ProductsController'); */
 /* Route::get('product', [ProductsController::class]); */
-/* Route::get('productApi', [ProductsController::class, 'indexs']);
-Route::get('productApi/{id}', [ProductsController::class, 'show']);
-Route::post('productApi', [ProductsController::class, 'insert']);
-Route::put('productApi/{id}', [ProductsController::class, 'update']);
-Route::delete('productApi/{id}', [ProductsController::class, 'destroy']); */
+
+
 /* Route::get('/products', 'App\Http\Controllers\ProductsController@index');
 Route::post('/products', 'App\Http\Controllers\ProductsController@store'); */

@@ -5,44 +5,51 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Create Category
+                        <h4>Update Product
                             <a href="{{ url('/') }}" class="btn btn-danger float-end">Back</a>
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('content.dashboard.edit') }}" method="POST">
+                        <form action="{{ url('products/' . $products->id . '/update') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
-
+                            @method('PUT')
                             <div class="mb-3">
                                 <label>Title</label>
-                                <input type="text" name="name" class="form-control" />
-                                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input type="text" name="title" class="form-control" value="{{ $products->title  }}"/>
+                                @error('title') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
                                 <label>Price</label>
-                                <input type="text" name="name" class="form-control" />
-                                @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input type="text" name="price" class="form-control" value="{{ $products->price }}" />
+                                @error('price') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+
                             <div class="mb-3">
                                 <label>Description</label>
-                                <textarea name="description" rows="3" class="form-control"></textarea>
+                                <textarea name="description" rows="3" class="form-control">{{ $products->description }}</textarea>
                                 @error('description') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+
                             <div class="mb-3">
                                 <label>Category</label>
                                 <select class="form-select" id="category" name="category">
-                                    <option>Choose Category....</option>
-                                    <option value="iPad">iPad</option>
-                                    <option value="iWatch">iWatch</option>
-                                    <option value="iPhone">iPhone</option>
-                                    <option value="Macbook">Macbook</option>
+                                    <option disabled>Choose Category...</option>
+                                    <option value="iPad" {{ $products->category == 'iPad' ? 'selected' : '' }}>iPad</option>
+                                    <option value="iWatch" {{ $products->category == 'iWatch' ? 'selected' : '' }}>iWatch</option>
+                                    <option value="iPhone" {{ $products->category == 'iPhone' ? 'selected' : '' }}>iPhone</option>
+                                    <option value="Macbook" {{ $products->category == 'Macbook' ? 'selected' : '' }}>Macbook</option>
                                 </select>
-                                @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                                @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+
                             <div class="mb-3">
                                 <label>Image</label>
-                                <input type="file" name="photo" class="form-control" >
-                                @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input type="file" name="image" class="form-control" />
+                                @if($products->image)
+                                    <small class="text-muted">Current Image: {{ $products->image }}</small>
+                                @endif
+                                @error('image') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="mb-3">
