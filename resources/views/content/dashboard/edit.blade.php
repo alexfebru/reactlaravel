@@ -10,7 +10,7 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('content.dashboard.edit', $post->id) }}" method="POST">
+                        <form action="{{ route('content.dashboard.edit') }}" method="POST">
                             @csrf
 
                             <div class="mb-3">

@@ -14,6 +14,7 @@
           <table class="table">
             <thead class="table-light">
               <tr>
+                <th class="text-truncate">Id</th>
                 <th class="text-truncate">Title</th>
                 <th class="text-truncate">Price</th>
                 <th class="text-truncate">Description</th>
@@ -23,12 +24,15 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($products as $value)
-                <tr>
-                  <td class="text-truncate">{{ $value->title }}</td>
-                  <td class="text-truncate">{{ $value->price }}</td>
-                  <td class="text-truncate">{{ $value->description }}</td>
-                  <td class="text-truncate">{{ $value->category }}</td>
+            <!--   @foreach($products as $items) -->
+              <tr>
+
+                <tr v-for ="(products, index) in product" :key="products.id">
+                  <td class="text-truncate">{{ $items -> id }}</td>
+                  <td class="text-truncate">{{ $items -> title }}</td>
+                  <td class="text-truncate">{{ $items -> price }}</td>
+                  <td class="text-truncate">{{ $items -> description }}</td>
+                  <td class="text-truncate">{{ $items -> category }}</td>
                   <td class="text-truncate">
                     <img src="{{asset('assets/img/products/product-1.jpg')}}" alt="Product 1" class="rounded-circle" width="50">
                   </td>
@@ -37,21 +41,9 @@
                     <a href="{{ url('product/delete') }}" class="btn btn-danger">Delete</a>
                   </td>
                 </tr>
+                
+          <!--     @endforeach -->
               
-              @endforeach
-                <!-- <tr>
-                  <td class="text-truncate">1</td>
-                  <td class="text-truncate">1000</td>
-                  <td class="text-truncate">Product 1 Description</td>
-                  <td class="text-truncate">Category 1</td>
-                  <td class="text-truncate">
-                    <img src="{{asset('assets/img/products/product-1.jpg')}}" alt="Product 1" class="rounded-circle" width="50">
-                  </td>
-                  <td class="text-truncate">
-                    <a href="{{ url('/editProduct') }}" class="btn btn-primary">Edit</a>
-                    <a href="{{ url('product/delete') }}" class="btn btn-danger">Delete</a>
-                  </td>
-                </tr> -->
            
             </tbody>
           </table>

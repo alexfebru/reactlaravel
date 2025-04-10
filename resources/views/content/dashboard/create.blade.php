@@ -41,7 +41,7 @@
                             </div>
                             <div class="mb-3">
                                 <label>Image</label>
-                                <input type="file" name="photo" class="form-control" >
+                                <input type="file" name="photo" class="form-control">
                                 @error('description') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
 
