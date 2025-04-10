@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-header">
         <h4>Products List
-          <a href="{{ url('/getProduct') }}" class="btn btn-primary float-end">Add Products</a>
+          <a href="{{ url('/products/create') }}" class="btn btn-primary float-end">Add Products</a>
         </h4>
         </div>
 
@@ -34,7 +34,7 @@
                   <td class="text-truncate">{{ $items -> description }}</td>
                   <td class="text-truncate">{{ $items -> category }}</td>
                   <td class="text-truncate">
-                    <img src="{{asset('assets/img/products/product-1.jpg')}}" alt="Product 1" class="rounded-circle" width="50">
+                    <img src="{{ asset($items->image) }}" style="width: 70px; height:70px;" alt="Img" />
                   </td>
                   <td class="text-truncate">
                     <a href="{{ url('/editProduct') }}" class="btn btn-primary">Edit</a>

@@ -10,18 +10,18 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('content.dashboard.create') }}" method="POST">
+                        <form action="{{ url('products/create') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="mb-3">
                                 <label>Title</label>
-                                <input type="text" name="name" class="form-control" />
-                                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input type="text" name="title" class="form-control" />
+                                @error('title') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
                                 <label>Price</label>
-                                <input type="text" name="name" class="form-control" />
-                                @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input type="text" name="price" class="form-control" />
+                                @error('price') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
                                 <label>Description</label>
@@ -37,12 +37,12 @@
                                     <option value="iPhone">iPhone</option>
                                     <option value="Macbook">Macbook</option>
                                 </select>
-                                @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                                @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
                                 <label>Image</label>
-                                <input type="file" name="photo" class="form-control">
-                                @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input type="file" name="image" class="form-control">
+                              
                             </div>
 
                             <div class="mb-3">
