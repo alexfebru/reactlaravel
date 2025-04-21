@@ -10,6 +10,7 @@ use App\Http\Resources\ProductResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\File;
+use Tymon\JWTAuth\Facades\JWTAuth;
 class ProductsController extends Controller
 {
     /**
@@ -18,6 +19,8 @@ class ProductsController extends Controller
     public function indexs()
     {
         /* $products = Products::paginate(10); */
+
+        
         $products = Products::all();
         // $products = Products::all();
         // $products = DB::table('product')->select('id','title')->get();
@@ -38,7 +41,9 @@ class ProductsController extends Controller
        
         if ($products->count() > 0) {
             // Return a collection of products using the ProductResource
-            return ProductResource::collection($products);
+            return $products->map(function ($product) {
+                return new ProductResource($product);
+            });
         } else {
             // Return a 404 response if no products are found
             return response()->json(['message' => 'No products found'], 404);

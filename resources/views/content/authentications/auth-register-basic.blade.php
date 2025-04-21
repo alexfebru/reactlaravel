@@ -15,19 +15,13 @@
 
       <!-- Register Card -->
       <div class="card p-2">
-        <!-- Logo -->
-        <div class="app-brand justify-content-center mt-5">
-          <a href="{{url('/')}}" class="app-brand-link gap-2">
-            <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20])</span>
-            <span class="app-brand-text demo text-heading fw-semibold">{{ config('variables.templateName') }}</span>
-          </a>
-        </div>
-        <!-- /Logo -->
+        
         <div class="card-body mt-2">
-          <h4 class="mb-2">Adventure starts here 🚀</h4>
-          <p class="mb-4">Make your app management easy and fun!</p>
+          <h4 class="app-brand mb-5 justify-content-center">Create Account</h4>
 
-          <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
+          <form id="formAuthentication" class="mb-3" action="{{url('/auth-register')}}" method="POST">
+            @csrf
+
             <div class="form-floating form-floating-outline mb-3">
               <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus>
               <label for="username">Username</label>
@@ -68,10 +62,7 @@
           </p>
         </div>
       </div>
-      <!-- Register Card -->
-      <img src="{{asset('assets/img/illustrations/tree-3.png')}}" alt="auth-tree" class="authentication-image-object-left d-none d-lg-block">
-      <img src="{{asset('assets/img/illustrations/auth-basic-mask-light.png')}}" class="authentication-image d-none d-lg-block" alt="triangle-bg">
-      <img src="{{asset('assets/img/illustrations/tree.png')}}" alt="auth-tree" class="authentication-image-object-right d-none d-lg-block">
+      
     </div>
   </div>
 </div>
