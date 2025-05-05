@@ -1,0 +1,35 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "dashboard"
+      
+    },
+    {
+      "url": "/",
+      "name": "Users",
+      "icon": "menu-icon tf-icons mdi mdi-account",
+      "slug": "users"
+    },
+    {
+      "url": "/",
+      "name": "Products",
+      "icon": "menu-icon tf-icons mdi mdi-cube",
+      "slug": "products"
+    },
+    {
+      "url": "/",
+      "name": "Orders",
+      "icon": "menu-icon tf-icons mdi mdi-cart",
+      "slug": "orders"
+    },
+    {
+      "url": "/",
+      "name": "Settings",
+      "icon": "menu-icon tf-icons mdi mdi-settings",
+      "slug": "settings"
+    }
+  ]
+}
