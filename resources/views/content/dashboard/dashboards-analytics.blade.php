@@ -36,11 +36,11 @@
 
         <!--   <td class="text-truncate">{{ $items -> image }}</td> -->
         <td class="text-truncate">
-          <!-- <img src="/images/{{ $items->image }}" style="width: 70px; height:70px;" /> -->
-          <!-- <img src="{{ asset('images/' . $items->image) }}" style="width: 70px; height:70px;" /> -->
-          <!-- <img src="{{ asset('storage/images/' . $items->image) }}" style="width: 70px; height:70px;" /> -->
-          <img src="{{ asset('images/' . ($items->image ?? 'default.png')) }}" style="width: 70px; height:70px;" />
-
+          {{-- <!-- <img src="/images/{{ $items->image }}" style="width: 70px; height:70px;" /> --> --}}
+          {{-- <!-- <img src="{{ asset('images/' . $items->image) }}" style="width: 70px; height:70px;" /> --> --}}
+          {{-- <!-- <img src="{{ asset('storage/images/' . $items->image) }}" style="width: 70px; height:70px;" /> --> --}}
+          {{-- <img src="{{ asset('/images/'. ($items->images ?? 'default.png')) }}" style="width: 70px; height:70px;" /> --}}
+          <img src="{{ asset('/images/' . $items->image) }}" width="60" height="60" alt="">
         </td>
         <td class="text-truncate">
           <a href="{{ url('products/' . $items->id . '/edit') }}" class="btn btn-primary">Edit</a>

@@ -140,7 +140,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         // Validate input
-        $request->validate([
+        $fields = $request->validate([
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
@@ -148,22 +148,18 @@ class ProductsController extends Controller
             'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
         ]);
 
+        $fields['title'] = strip_tags($fields['title']);
+        $fields['price'] = strip_tags($fields['price']);
+        $fields['category'] = strip_tags($fields['category']);
+        $fields['description'] = strip_tags($fields['description']);
+
         // Handle file upload
-        $filename = null;
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images'), $filename);
-        }
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('/images/'), $imageName);
+        $fields['image'] = $imageName;
 
         // Save product
-        $product = Products::create([
-            'title' => $request->title,
-            'price' => $request->price,
-            'description' => $request->description,
-            'category' => $request->category,
-            'image' => $filename ? 'images/' . $filename : null,
-        ]);
+        Products::create($fields);
 
         // Return view with all products
         return view('content.dashboard.dashboards-analytics', [

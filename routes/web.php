@@ -18,15 +18,15 @@ use App\Http\Controllers\authentications\ResetPasswordBasic;
 // Route::resource('content.dashboard.dashboards-analytics', ProductsController::class);
 // Route::get('/', ProductsController::class .'index')->name('content.dashboard.dashboards-analytics');
 // Example route
+Route::get('/', [ProductsController::class, 'indexs']);
 
-
-Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
+// Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 
-Route::get('/', [ProductsController::class, 'indexs'])
-    ->middleware('jwt.verify')
-    ->name('dashboard');
+// Route::get('/', [ProductsController::class, 'indexs'])
+//     ->middleware('jwt.verify')
+//     ->name('dashboard');
 
 
 Route::controller(App\Http\Controllers\ProductsController::class)->group(function () {

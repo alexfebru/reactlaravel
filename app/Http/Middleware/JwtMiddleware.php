@@ -19,7 +19,7 @@ class JwtMiddleware
         try {
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
-            return redirect()->route('auth-login-basic');
+            return redirect()->route('/');
         }
 
         return $next($request);
